@@ -1,0 +1,41 @@
+name: Jalankan dan Commit Jualan Grafik
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout kod
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Pasang keperluan Python
+      run: pip install matplotlib requests
+
+    - name: Jalankan skrip jualan_mei.py
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        CHAT_ID: ${{ secrets.CHAT_ID }}
+      run: python jualan_mei.py
+
+    - name: Commit & push graf_jualan_mei.png setiap run
+      run: |
+        git config user.name "github-actions"
+        git config user.email "actions@users.noreply.github.com"
+        git add graf_jualan_mei.png
+        timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+        git commit -m "Tambah graf jualan terkini - ${timestamp}" || echo "Tiada perubahan untuk commit"
+        git push
