@@ -25,11 +25,11 @@ jobs:
     - name: Pasang keperluan Python
       run: pip install matplotlib requests
 
-    - name: Jalankan skrip jualan_mei.py
+    - name: Jalankan skrip jualan_jun.py
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         CHAT_ID: ${{ secrets.CHAT_ID }}
-      run: python jualan_mei.py
+      run: python jualan_jun.py
 
     - name: Commit & push graf_jualan_mei.png setiap run
       run: |
