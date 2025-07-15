@@ -31,11 +31,11 @@ jobs:
         CHAT_ID: ${{ secrets.CHAT_ID }}
       run: python jualan_jun.py
 
-    - name: Commit & push graf_jualan_mei.png setiap run
+    - name: Commit & push graf_jualan_jun.png setiap run
       run: |
         git config user.name "github-actions"
         git config user.email "actions@users.noreply.github.com"
-        git add graf_jualan_mei.png
+        git add graf_jualan_jun.png
         timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
         git commit -m "Tambah graf jualan terkini - ${timestamp}" || echo "Tiada perubahan untuk commit"
         git push
